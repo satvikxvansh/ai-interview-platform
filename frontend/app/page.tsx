@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from 'next/link';
+import {  Sparkles } from "lucide-react";
 
 // ─── Minimal icon components (no external dep needed) ───────────────────────
 const IconSpark = () => (
@@ -191,70 +193,6 @@ export default function LandingPage() {
   return (
     <>
       {/* ── Global styles injected via style tag ── */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
-
-        :root {
-          --accent: #5EEAD4;
-          --accent-dim: rgba(94,234,212,0.12);
-          --bg: #070c0b;
-        }
-
-        * { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { background: var(--bg); color: #e5e5e5; }
-
-        .font-display { font-family: 'Syne', sans-serif; }
-        .font-mono { font-family: 'DM Mono', monospace; }
-        .font-body { font-family: 'DM Sans', sans-serif; }
-
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(24px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to   { opacity: 1; }
-        }
-        @keyframes gradientShift {
-          0%, 100% { background-position: 0% 50%; }
-          50%       { background-position: 100% 50%; }
-        }
-        @keyframes pulse-slow {
-          0%, 100% { opacity: 0.4; }
-          50%       { opacity: 0.7; }
-        }
-
-        .animate-fade-up   { animation: fadeUp 0.7s ease both; }
-        .animate-fade-in   { animation: fadeIn 0.6s ease both; }
-        .delay-100  { animation-delay: 0.1s; }
-        .delay-200  { animation-delay: 0.2s; }
-        .delay-300  { animation-delay: 0.3s; }
-        .delay-400  { animation-delay: 0.4s; }
-        .delay-500  { animation-delay: 0.5s; }
-        .delay-600  { animation-delay: 0.6s; }
-
-        .hero-glow {
-          background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(94,234,212,0.13) 0%, transparent 70%);
-        }
-        .text-gradient {
-          background: linear-gradient(135deg, #fff 0%, #5EEAD4 50%, #a78bfa 100%);
-          background-size: 200% 200%;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          animation: gradientShift 6s ease infinite;
-        }
-        .grid-bg {
-          background-image:
-            linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-          background-size: 48px 48px;
-        }
-        .accent-line {
-          background: linear-gradient(90deg, transparent, var(--accent), transparent);
-        }
-      `}</style>
 
       <NoiseOverlay />
 
@@ -267,14 +205,14 @@ export default function LandingPage() {
         <div className="hero-glow pointer-events-none fixed inset-0" />
 
         {/* ══════════════════════════════════ NAV ══════════════════════════════ */}
-        <header className={`fixed top-0 z-40 w-full transition-all duration-300 ${scrolled ? "border-b border-white/[0.06] backdrop-blur-xl bg-[#070c0b]/80" : ""}`}>
+        <header className={`fixed top-0 z-40 w-full transition-all duration-300 ${scrolled ? "border-b border-white/6 backdrop-blur-xl bg-[#070c0b]/80" : "border-b border-white/6 backdrop-blur-xl bg-[#070c0b]/20"}`}>
           <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
             {/* Logo */}
             <div className="flex items-center gap-2">
               <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-[#5EEAD4]/30 bg-[#5EEAD4]/10 text-[#5EEAD4]">
-                <IconSpark />
+                <Sparkles size={14} style={{ color: "#5EEAD4" }} />
               </div>
-              <span className="font-display text-[15px] font-700 tracking-tight text-white">Prept<span className="text-[#5EEAD4]">AI</span></span>
+              <span className="font-display text-[15px] font-700 tracking-tight text-white">Prep<span className="text-[#5EEAD4]">AI</span></span>
             </div>
 
             {/* Nav links */}
@@ -289,10 +227,17 @@ export default function LandingPage() {
 
             {/* CTA */}
             <div className="flex items-center gap-3">
-              <a href="#" className="hidden text-sm text-neutral-400 hover:text-white transition-colors md:block">Sign in</a>
-              <a href="#" className="rounded-xl border border-[#5EEAD4]/30 bg-[#5EEAD4]/10 px-4 py-2 text-sm font-medium text-[#5EEAD4] transition-all hover:border-[#5EEAD4]/60 hover:bg-[#5EEAD4]/20">
+              <Link href="/login" passHref
+              className="hidden text-sm text-neutral-400 hover:text-white transition-colors md:block"
+              >
+                Sign in
+              </Link>
+
+              <Link href="/login" passHref
+              className="rounded-xl border border-[#5EEAD4]/30 bg-[#5EEAD4]/10 px-4 py-2 text-sm font-medium text-[#5EEAD4] transition-all hover:border-[#5EEAD4]/60 hover:bg-[#5EEAD4]/20"
+              >
                 Start free
-              </a>
+              </Link>
             </div>
           </div>
         </header>
@@ -325,11 +270,11 @@ export default function LandingPage() {
 
           {/* CTAs */}
           <div className="animate-fade-up delay-300 mt-10 flex flex-col items-center gap-3 sm:flex-row">
-            <a href="#"
-              className="group flex items-center gap-2 rounded-xl bg-[#5EEAD4] px-6 py-3 text-sm font-semibold text-[#050e0d] transition-all duration-200 hover:bg-[#7FF0DC] hover:shadow-[0_0_32px_rgba(94,234,212,0.35)]">
-              Start practicing for free
-              <span className="transition-transform duration-200 group-hover:translate-x-0.5"><IconArrow /></span>
-            </a>
+            <Link href="/login" passHref
+            className="group flex items-center gap-2 rounded-xl bg-[#5EEAD4] px-6 py-3 text-sm font-semibold text-[#050e0d] transition-all duration-200 hover:bg-[#7FF0DC] hover:shadow-[0_0_32px_rgba(94,234,212,0.35)]">
+            Start practicing for free
+            <span className="transition-transform duration-200 group-hover:translate-x-0.5"><IconArrow /></span>
+            </Link>
             <a href="#how-it-works"
               className="flex items-center gap-2 rounded-xl border border-white/10 px-6 py-3 text-sm text-neutral-300 transition-all hover:border-white/20 hover:bg-white/5">
               See how it works
